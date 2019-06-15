@@ -1,12 +1,15 @@
-<div class="row">
+<style>
+  .calcheight {
+    height: calc(100% - 60px);
+    max-width: 1366px;
+    margin: 0 auto;
+  }
+</style>
+<div class="row calcheight">
   <div class="col-4">
-    <h4 class="title">Create News</h4>
-    <hr>
     <create-news (created)="load()"></create-news>
   </div>
-  <div class="col-8">
-    <h4 class="title">All News</h4>
-    <hr>
+  <div class="col-8 h-100">
     <news-list [news]="news"></news-list>
   </div>
 </div>
