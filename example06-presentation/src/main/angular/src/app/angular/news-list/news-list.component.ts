@@ -12,6 +12,7 @@ export class NewsListComponent {
   public news: News[] = [];
 
   get reversedNews(): News[] {
+    console.log("asd" + this.news);
     return this.news.slice().reverse();
   }
 }

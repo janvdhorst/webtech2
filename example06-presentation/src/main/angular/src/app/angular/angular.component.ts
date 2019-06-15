@@ -22,7 +22,9 @@ export class AngularComponent implements OnInit {
 
   load(): void {
     this.newsService.getNewest().subscribe(
-      news => this.latest = news,
+      news => {
+        this.latest = news;
+      },
       console.error
     );
     this.newsService.getAll().subscribe(

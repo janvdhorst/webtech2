@@ -1,21 +1,27 @@
-<div class="container mt-4">
-  <div class="jumbotron py-4">
-    <h1 class="display-5">Webtech 2 Examples</h1>
-    <p class="lead mb-0">Examples for the contents of the lecture.</p>
+<style>
+  .topmenu {
+    height: 60px;
+    background-color: black;
+  }
+  .navbar-nav {
+    margin: 0 auto;
+    max-width: 1366px;
+  }
+</style>
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col-12 p-0 topmenu">
+        <nav class="navbar h-100 navbar-dark bg-dark navbar-expand-lg ">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav text-center">
+                <a class="nav-item pr-3 pl-3 nav-link active" routerLink="/angular" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item pl-3 pr-3 nav-link" routerLink="/angular" routerLinkActive="active">Features</a>
+                <a class="nav-item pl-3 pr-3 nav-link" routerLink="/angular" routerLinkActive="active">Pricing</a>
+              </div>
+            </div>
+          </nav>
+    </div>
   </div>
-
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/angular" routerLinkActive="active">Angular</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/auth" routerLinkActive="active">Auth</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/security" routerLinkActive="active">Security</a>
-    </li>
-  </ul>
-
   <div class="mt-4">
     <router-outlet></router-outlet>
   </div>
