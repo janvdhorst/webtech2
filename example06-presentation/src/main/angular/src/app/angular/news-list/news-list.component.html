@@ -1,0 +1,14 @@
+<div class="alert alert-info" *ngIf="news.length == 0">
+  No news available
+</div>
+
+<div class="list-group" *ngIf="news.length > 0">
+  <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="i == 0">
+    <div class="w-100 mr-2">
+      <h6 class="mb-0">{{n.headline}} <span class="badge badge-primary" *ngIf="i == 0">Latest</span></h6>
+    </div>
+    <div class="flex-shrink-0">
+      <small>{{n.publishedOn | date:mediumDate}}</small>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="alert alert-info" *ngIf="news == null">
+  Nothing to see here.
+</div>
+
+<div *ngIf="news != null">
+  <div class="text-muted">
+    <small>{{news.publishedOn | date:mediumDate}}</small>
+  </div>
+  <div class="mt-2">
+    <h5>{{news.headline}}</h5>
+    <div [innerHTML]="getTrustedHtml(news.content)" *ngIf="allowHtmlContent"></div>
+    <div *ngIf="!allowHtmlContent">
+      {{news.content}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-body">
+
+    <div class="alert alert-danger" *ngIf="errorMessage != null">
+      {{errorMessage}}
+      <button type="button" class="close float-right" aria-label="Close" (click)="errorMessage = null">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <form (submit)="createNews($event)">
+      <div class="form-group">
+        <label>Headline</label>
+        <input name="headline" class="form-control" type="text" required [(ngModel)]="headline">
+      </div>
+      <div class="form-group">
+        <label>Content <span [ngClass]="getCharsLeft() < 0 ? 'text-danger' : 'text-muted'">({{getCharsLeft()}})</span></label>
+        <textarea name="content" class="form-control" required [(ngModel)]="content"></textarea>
+      </div>
+      <button class="btn btn-block btn-outline-primary" [disabled]="getCharsLeft() < 0">Create News</button>
+    </form>
+
+  </div>
+</div>

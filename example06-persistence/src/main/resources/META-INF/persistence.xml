@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+      http://java.sun.com/xml/ns/persistence
+      http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <persistence-unit name="pu">
+        <jta-data-source>java:jboss/datasources/example06</jta-data-source>
+
+        <properties>
+            <!-- configured in example06-ds.xml -->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:example06;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;"/>-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:file:${h2.path}" />-->
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+            <!-- Configure SQL logging -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,46 @@
+<div *ngIf="!isLoggedIn">
+  <h4 class="title">Login</h4>
+  <hr>
+  <div class="card">
+    <div class="card-body">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link" href="#" (click)="useBasicAuth($event)" [class.active]="isBasicAuth()">Basic</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" (click)="useSessionAuth($event)" [class.active]="isSessionAuth()">Session</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" (click)="useJwtAuth($event)" [class.active]="isJwtAuth()">JWT</a>
+        </li>
+      </ul>
+      <hr>
+      <login [authService]="authService" (loggedIn)="load()"></login>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoggedIn">
+  <div class="row">
+    <div class="col-12 text-right">
+      <button class="btn btn-sm btn-outline-secondary" (click)="logout()">Logout</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-4">
+      <h4 class="title">Create News</h4>
+      <hr>
+      <create-news-auth (created)="load()"></create-news-auth>
+    </div>
+    <div class="col-8">
+      <h4 class="title">Latest News</h4>
+      <hr>
+      <news-details [news]="latest"></news-details>
+      <hr>
+      <h4 class="title">All News</h4>
+      <hr>
+      <news-list [news]="news"></news-list>
+    </div>
+  </div>
+</div>
