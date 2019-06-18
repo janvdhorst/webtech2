@@ -16,6 +16,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { CreateNewsAuthComponent } from './auth/create-news-auth/create-news-auth.component';
 import { NewsListComponent } from './angular/news-list/news-list.component';
 import { NewLoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NewLoginComponent } from './login/login.component';
     NewsDetailsComponent,
     LoginComponent,
     NewsListComponent,
-    NewLoginComponent
+    NewLoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
