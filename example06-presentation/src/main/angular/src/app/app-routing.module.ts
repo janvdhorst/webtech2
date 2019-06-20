@@ -13,7 +13,7 @@ const routes: Routes = [
   { path : 'login' , component: NewLoginComponent },
   { path : 'registration' , component: RegistrationComponent },
   { path: '',
-    redirectTo: '/angular',
+    redirectTo: '/login' ,
     pathMatch: 'full'
   }
 ];
