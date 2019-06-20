@@ -27,7 +27,7 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 
-@Path("/auth/{a:session|basic|jwt}/news")
+@Path("/auth/session/news")
 @Transactional
 public class NewsCRUD {
 
@@ -85,7 +85,6 @@ public class NewsCRUD {
     // Shiro annotations only work with byte-code weaving enabled.
     // This currently requires Java < 11. See https://github.com/mojohaus/aspectj-maven-plugin/pull/45
     @RequiresAuthentication
-    @RequiresRoles("admin")
     public Response create(final DBNews param) {
 
         final DBNews news = new DBNews();

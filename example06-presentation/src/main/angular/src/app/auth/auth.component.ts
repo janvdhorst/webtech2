@@ -20,7 +20,7 @@ export class AuthComponent extends AngularComponent implements OnInit {
   constructor(private http: HttpClient,
               private authNewsService: AuthNewsService) {
     super(authNewsService);
-    this.useBasicAuth();
+    this.useSessionAuth();
   }
 
   ngOnInit() {

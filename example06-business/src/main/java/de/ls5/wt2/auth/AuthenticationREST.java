@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response.Status;
 import com.nimbusds.jose.JOSEException;
 import de.ls5.wt2.conf.auth.jwt.JWTLoginData;
 import de.ls5.wt2.conf.auth.jwt.JWTUtil;
+import javax.ws.rs.FormParam;
 
 @Path("jwt")
 @Transactional
@@ -23,14 +24,15 @@ public class AuthenticationREST {
 
     @Path("authenticate")
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createJWToken(JWTLoginData credentials) throws JOSEException {
+    @Consumes("application/x-www-form-urlencoded")
+    public Response createJWToken(@FormParam("username") String user, @FormParam("password") String password) throws JOSEException {
 
         // do some proper lookup
-        final String user = credentials.getUsername();
-        final String pwd = credentials.getPassword();
+        JWTLoginData credentials = new JWTLoginData();
+        credentials.setUsername(user);
+        credentials.setPassword(password);
 
-        if (!user.equals(pwd)) {
+        if (!user.equals("horst")) {
             return Response.status(Status.UNAUTHORIZED).build();
         }
 
