@@ -37,7 +37,7 @@ export class RegistrationComponent{
     await this.http.post(`example06/rest/auth/user/register`, body.toString(), {headers, responseType: 'text'})
       .subscribe(
         data => alert('Registered successfully'),
-        error => alert('OOPS ' + error)
+        error => {alert('Fehler'); console.log(error); }
       );
   }
 
