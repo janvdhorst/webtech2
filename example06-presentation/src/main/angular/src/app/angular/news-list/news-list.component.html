@@ -1,4 +1,19 @@
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+
+.btn {
+  border: none;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  float: right;
+}
+
+/* Darker background on mouse-over */
+.btn:hover{
+  background-color: red;
+}
   .list-group {
     background-color: white;
     height: calc(100% - 50px);
@@ -11,12 +26,18 @@
   }
   .content {
     background-color: #e6f2ff;
-  	width: 710px;
+  	width: 700px;
   	border: 1px solid white;
   	padding: 10px;
   	margin: 20px;
   	word-wrap: break-word;
   }  
+  .buttons {
+    position: absolute;
+    top: 120px;
+    right: 0;
+}
+  
 </style>
 <div class="row h-100">
   <div class="col-12">
@@ -24,15 +45,23 @@
         No news available
       </div>
       <div class="list-group" *ngIf="news.length > 0">
-        <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="i == 0">
+                                                                                                 <!-- Hier natürlich wenn eigene Nachrichten und nicht peter griffin -->
+        <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="n.headline == 'Peter Griffin'">
+          
           <div class="w-100 mr-2">
-            <h6 class="mb-0">{{n.headline}} <span class="" *ngIf="i == 0">Latest</span></h6>
-            <div class ="content"> <p style="position:relative;" >{{n.content}}</p> </div>
+            <h6 class="mb-0">{{n.headline}} </h6>
+            <div class ="content"> {{n.content}} </div> <br><br>
+            <span  class="buttons" *ngIf="n.headline == 'Peter Griffin'">
+            	<button class="btn"><i class="fa fa-trash"></i></button >
+            	<button class="btn"><i class="fa fa-edit"></i></button >            
+            </span> 				
           </div>
           <div class="flex-shrink-0">
             <small>{{n.publishedOn | date:mediumDate}}</small>
           </div>
+          
         </div>
+                        
       </div>
   </div>
 </div>
