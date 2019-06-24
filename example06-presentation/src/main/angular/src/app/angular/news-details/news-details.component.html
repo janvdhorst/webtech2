@@ -9,7 +9,7 @@
   <div class="mt-2">
     <h5>{{news.headline}}</h5>
     <div [innerHTML]="getTrustedHtml(news.content)" *ngIf="allowHtmlContent"></div>
-    <div *ngIf="!allowHtmlContent">
+    <div>
       {{news.content}}
     </div>
   </div>
