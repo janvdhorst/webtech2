@@ -16,7 +16,6 @@ public class DBUser extends DBIdentified {
     private String password;
     private String firstname;
     private String lastname;
-    private String salt;
 
     public String getLastname() {
       return this.lastname;
@@ -49,13 +48,6 @@ public class DBUser extends DBIdentified {
     }
     public void setPassword(String password) {
       this.password = password;
-    }
-
-    public String getSalt() {
-      return this.salt;
-    }
-    public void setSalt(String salt) {
-      this.salt = salt;
     }
 }
 
