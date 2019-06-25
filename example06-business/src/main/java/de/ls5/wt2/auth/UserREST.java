@@ -25,7 +25,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import java.util.List;
-
+import de.ls5.wt2.conf.auth.jwt.*;
+import com.nimbusds.jose.*;
 @Path("/auth/user")
 @Transactional
 public class UserREST {
@@ -61,13 +62,16 @@ public class UserREST {
             }
             if(sb.toString().equals(users[i].getPassword().toString())) {
               String JWTToken = "";
-              //Login successful
-              /* 
-              
-                TODO here: generate and send JWT token
-
-               */
-              return Response.ok(JWTToken).build();
+              JWTUtil util = new JWTUtil();
+              JWTLoginData utilData = new JWTLoginData();
+              utilData.setUsername(users[i].getUsername().toString());
+              utilData.setPassword(sb.toString());
+              try {
+                JWTToken = util.createJWToken(utilData);
+                return Response.ok(JWTToken).build();
+              }catch(JOSEException x) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build(); 
+              }
             }
             }catch(NoSuchAlgorithmException e) {
               return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build(); 

@@ -45,7 +45,7 @@
         No news available
       </div>
       <div class="list-group" *ngIf="news.length > 0">
-                                                                                                 <!-- Hier natürlich wenn eigene Nachrichten und nicht peter griffin -->
+        <!-- Hier natï¿½rlich wenn eigene Nachrichten und nicht peter griffin -->
         <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="n.headline == 'Peter Griffin'">
           <form>
 	          <div class="w-100 mr-2">
@@ -61,7 +61,6 @@
 	          </div>
           </form>
         </div>
-                        
       </div>
   </div>
 </div>
