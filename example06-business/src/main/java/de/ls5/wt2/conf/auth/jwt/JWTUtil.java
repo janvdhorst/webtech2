@@ -59,6 +59,18 @@ public class JWTUtil {
         }
     }
 
+    public static String getSender(String token) {
+      try {
+        JWSObject jws = JWSObject.parse(token);
+        JWTClaimsSet claimsSet = JWTClaimsSet.parse(jws.getPayload().toJSONObject());
+        return claimsSet.getSubject();
+      }catch(ParseException e) {
+        return "Anonymous";
+      }
+      
+        
+    }
+
     private static byte[] getSharedKey() {
         return "mySuperDuperSecure256BitLongSecret".getBytes();
     }

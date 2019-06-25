@@ -33,7 +33,10 @@ export class NewLoginComponent{
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
     await this.http.post(`example06/rest/auth/user/login`, body.toString(), {headers, responseType: 'text'})
     .subscribe(
-      data => alert('Success ' + data),
+      data => {
+        sessionStorage.setItem('jwt', data);
+        alert('Login successful');
+      },
       error => { alert('Login failed'); console.log(error); }
     );
   }
