@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import de.ls5.wt2.DBNews;
 import de.ls5.wt2.DBNews_;
+import de.ls5.wt2.conf.auth.jwt.*;
 
 @Path("/news")
 @Transactional
@@ -49,15 +50,18 @@ public class NewsCRUD {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(final DBNews param) {
 
-        final DBNews news = new DBNews();
-
-        news.setHeadline(param.getHeadline());
-        news.setContent(param.getContent());
-        news.setPublishedOn(new Date());
-
-        this.entityManager.persist(news);
-
-        return Response.ok(news).build();
+        //Verify JWT
+        JWTUtil util = new JWTUtil();
+        if(util.validateToken(param.getHeadline())) {
+          String sender = util.getSender(param.getHeadline());
+          final DBNews news = new DBNews();
+          news.setHeadline(sender);
+          news.setContent(param.getContent());
+          news.setPublishedOn(new Date());
+          this.entityManager.persist(news);
+          return Response.ok(news).build();
+        }
+        return Response.status(Response.Status.UNAUTHORIZED).build(); 
     }
 
     @GET
@@ -79,23 +83,5 @@ public class NewsCRUD {
     @Produces(MediaType.APPLICATION_JSON)
     public DBNews readAsJSON(@PathParam("id") final long id) {
         return this.entityManager.find(DBNews.class, id);
-    }
-
-    // An example of how to misuse the API and do something unRESTful
-    @Path("/new/{headline}/{content}")
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@PathParam("headline") final String headline, @PathParam("content") final String content) {
-
-        final DBNews news = new DBNews();
-
-        news.setHeadline(headline);
-        news.setContent(content);
-        news.setPublishedOn(new Date());
-
-        this.entityManager.persist(news);
-
-        return Response.ok(news).build();
     }
 }
