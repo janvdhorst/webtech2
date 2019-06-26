@@ -32,7 +32,7 @@ export class NewsService extends BaseNewsService {
   }
 
   delete(news: News): Observable<News> {
-	const url = `${env.apiUrl}/news/${news.id}`;
+	const url = `${env.apiUrl}/news`;
     return this.http.delete<News>(url, {headers: this.defaultHeaders});
   }
 }
