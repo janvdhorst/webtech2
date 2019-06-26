@@ -47,19 +47,19 @@
       <div class="list-group" *ngIf="news.length > 0">
         <!-- Hier nat�rlich wenn eigene Nachrichten und nicht peter griffin -->
         <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="n.headline == 'Peter Griffin'">
-          <form>
+          
 	          <div class="w-100 mr-2">
-	            <h6 class="mb-0">{{n.headline}}</h6>
+	            <h6 class="mb-0">{{n.headline}}</h6> 
 	            <div class ="content"> {{n.content}} </div> 
 	            <span  class="buttons" *ngIf="n.headline == 'Peter Griffin'">
-	            	<button class="btn"><i class="fa fa-trash"></i></button >
+	            	<button (click)="deleteNews(n.id)" class="btn"><i class="fa fa-trash"></i></button >
 	            	<button class="btn"><i class="fa fa-edit"></i></button >            
 	            </span> 				
 	          </div>
 	          <div class="flex-shrink-0">
 	            <small>{{n.publishedOn | date:mediumDate}}</small>
 	          </div>
-          </form>
+          
         </div>
       </div>
   </div>
