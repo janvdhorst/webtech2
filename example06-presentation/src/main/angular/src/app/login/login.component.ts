@@ -7,6 +7,8 @@ import { AuthNewsService } from '../auth/auth-news.service';
 import { environment as env } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { JwtAuthService } from '../auth/jwt-auth.service';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,8 @@ import { JwtAuthService } from '../auth/jwt-auth.service';
 })
 export class NewLoginComponent{
 
-  constructor(private http: HttpClient) { }
+	  
+  constructor(private http: HttpClient, private router: Router) { }
 
   @Output()
   public username:string = "";
@@ -35,7 +38,8 @@ export class NewLoginComponent{
     .subscribe(
       data => {
         sessionStorage.setItem('jwt', data);
-        alert('Login successful');
+		//alert('Login successful');
+		this.router.navigate(['angular']);
       },
       error => { alert('Login failed'); console.log(error); }
     );
