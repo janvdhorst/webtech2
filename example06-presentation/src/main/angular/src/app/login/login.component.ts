@@ -34,12 +34,14 @@ export class NewLoginComponent{
     await this.http.post(`example06/rest/auth/user/login`, body.toString(), {headers, responseType: 'text'})
     .subscribe(
       data => {
-        sessionStorage.setItem('jwt', data);
-        alert('Login successful');
+		sessionStorage.setItem('jwt', data);
+		alert('Login successful');
+		
       },
       error => { alert('Login failed'); console.log(error); }
     );
   }
+
 
   getBaseUrl(): string {
     return `${env.apiUrl}/auth/jwt`
