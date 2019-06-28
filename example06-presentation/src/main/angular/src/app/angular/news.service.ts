@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { News } from '../news';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { BaseNewsService } from '../base-news.service';
 import { environment as env } from '../../environments/environment';
 
@@ -29,5 +29,10 @@ export class NewsService extends BaseNewsService {
     return this.http.post<any>(`${env.apiUrl}/news`, {headline, content}, {headers: this.defaultHeaders}).pipe(
       map(body => News.fromObject(body))
     );
+  }
+
+  delete(news: News): Observable<News> {
+	const url = `${env.apiUrl}/news`;
+    return this.http.delete<News>(url, {headers: this.defaultHeaders});
   }
 }

@@ -7,6 +7,7 @@ import { AuthNewsService } from '../auth/auth-news.service';
 import { environment as env } from '../../environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
 import { JwtAuthService } from '../auth/jwt-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'registration',
@@ -15,7 +16,7 @@ import { JwtAuthService } from '../auth/jwt-auth.service';
 })
 export class RegistrationComponent{
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   @Output()
   public username:string = "";
@@ -36,7 +37,10 @@ export class RegistrationComponent{
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
     await this.http.post(`example06/rest/auth/user/register`, body.toString(), {headers, responseType: 'text'})
       .subscribe(
-        data => alert('Registered successfully'),
+        data => {
+			alert('Registered successfully');
+			this.router.navigate(['login']);
+		},
         error => {alert('Fehler'); console.log(error); }
       );
   }

@@ -15,4 +15,6 @@ export abstract class BaseNewsService {
   abstract getAll(): Observable<News[]>;
 
   abstract create(headline: string, content: string): Observable<News>;
+
+  abstract delete(news: News): Observable<News>;
 }

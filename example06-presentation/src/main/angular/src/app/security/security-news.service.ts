@@ -30,4 +30,9 @@ export class SecurityNewsService extends BaseNewsService {
       map(body => News.fromObject(body))
     );
   }
+
+    delete(news: News): Observable<News> {
+	const url = `${env.apiUrl}/news`;
+    return this.http.delete<News>(url, {headers: this.defaultHeaders});
+  }
 }

@@ -11,6 +11,7 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -63,6 +64,14 @@ public class NewsCRUD {
         }
         return Response.status(Response.Status.UNAUTHORIZED).build(); 
     }
+    
+//    @DELETE
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response delete(final DBNews param) {
+//    		//TODO
+//    	
+//    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
