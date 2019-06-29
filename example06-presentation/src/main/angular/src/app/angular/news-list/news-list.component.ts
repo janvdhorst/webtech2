@@ -24,7 +24,7 @@ export class NewsListComponent {
   }
 
   
-  public deleteNews(news: News): void {
+  public deleteNews(news: number): void {
     if(confirm("Are you sure to delete this news?")) {
 
 		this.newsService.delete(news).subscribe(
