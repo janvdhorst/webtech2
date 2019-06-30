@@ -18,6 +18,10 @@ import { NewsListComponent } from './angular/news-list/news-list.component';
 import { NewLoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
+import { TokenService } from './services/token.service';
+import { AuthService } from './services/auth.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
