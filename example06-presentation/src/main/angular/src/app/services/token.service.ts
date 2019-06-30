@@ -5,44 +5,54 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-  constructor() { }
+  	constructor() { }
 
-handle(token) {
-	this.set(token);
-}
-
-set(token) {
-	sessionStorage.setItem('token', token);
-}
-
-get() {
-	return sessionStorage.getItem('token');
-}
-
-remove() {
-	sessionStorage.removeItem('token');
-}
-
-isValid() {
-	const token = this.get();
-	if(token) {
-		return true;
-	} else {
-		return false;
+	handle(token, username) {
+		this.set(token);
+		this.setUsername(username);
 	}
-}
 
-isLoggedIn() {
-	return this.isValid();
-}
+	setUsername(username) {
+		sessionStorage.setItem('username', username);
+	}
 
-payload(token) {
-	const payload = token.split('.')[1];
-	return this.decode(payload);	
-}
+	getUsername() {
+		return sessionStorage.getItem('username');
+	}
 
-decode(payload) {
-	return JSON.parse(atob(payload));
-}
+	set(token) {
+		sessionStorage.setItem('token', token);
+	}
+
+	get() {
+		return sessionStorage.getItem('token');
+	}
+
+	remove() {
+		sessionStorage.removeItem('token');
+		sessionStorage.removeItem('username');
+	}
+
+	isValid() {
+		const token = this.get();
+		if(token) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	isLoggedIn() {
+		return this.isValid();
+	}
+
+	payload(token) {
+		const payload = token.split('.')[1];
+		return this.decode(payload);	
+	}
+
+	decode(payload) {
+		return JSON.parse(atob(payload));
+	}
 
 }

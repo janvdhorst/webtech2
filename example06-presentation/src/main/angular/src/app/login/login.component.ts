@@ -48,9 +48,8 @@ export class NewLoginComponent{
   }
 
   handleResponse(data) {
-	this.Token.handle(data);
+	this.Token.handle(data, this.username);
 	this.Auth.changeAuthStatus(true);
-	// sessionStorage.setItem('jwt', data);
 	this.router.navigate(['angular']);
   }
 
