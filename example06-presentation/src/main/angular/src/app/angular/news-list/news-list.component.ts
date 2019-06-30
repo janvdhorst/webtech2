@@ -3,6 +3,7 @@ import { News } from '../../news';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NewsService } from '../news.service';
 import { Router } from '@angular/router';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'news-list',
@@ -11,7 +12,12 @@ import { Router } from '@angular/router';
 })
 export class NewsListComponent {
 
-  constructor(private http: HttpClient, private newsService: NewsService, private router: Router) { }
+  constructor(
+	  private http: HttpClient, 
+	  private newsService: NewsService, 
+	  private router: Router,
+	  private Token: TokenService
+) { }
 
   @Output()
   public id:string = "";
@@ -24,18 +30,14 @@ export class NewsListComponent {
     return this.news.slice().reverse();
   }
 
+  public currentUser() {
+	  return this.Token.getUsername();
+
+  }
+
+
   public deleteNews(news: string): void {
     if(confirm("Are you sure to delete this news?")) {
-
-/* 		this.newsService.deleteNews(news).subscribe(
-			() => {
-			  this.news.forEach(
-					(current, index) => {
-						if(news.id === current.id) {
-							this.news.splice(index,1);
-						}
-					});
-      }); */
 
     const body = new HttpParams()
       .set('id', news)
