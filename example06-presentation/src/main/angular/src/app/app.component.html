@@ -7,6 +7,7 @@
     margin: 0 auto;
     max-width: 1366px;
   }
+
 </style>
 <div class="container-fluid h-100">
   <div class="row">
@@ -17,7 +18,7 @@
                 <a class="nav-item pr-3 pl-3 nav-link" routerLink="/angular" routerLinkActive="active">Home</a>
                 <a class="nav-item pl-3 pr-3 nav-link active" routerLink="/login" routerLinkActive="active" *ngIf="!loggedIn">Login <span class="sr-only">(current)</span></a>
 				<a class="nav-item pl-3 pr-3 nav-link" routerLink="/registration" routerLinkActive="active" *ngIf="!loggedIn">Registration</a>				
-				<a class="nav-item pl-3 pr-3 nav-link" routerLink="/login/" *ngIf="loggedIn">Logout</a>
+				<a class="nav-item pl-3 pr-3 nav-link" href="#" (click)="logout($event)" *ngIf="loggedIn">Logout</a>
               </div>
             </div>
           </nav>
