@@ -46,14 +46,14 @@
       </div>
       <div class="list-group" *ngIf="news.length > 0">
         <!-- Hier nat�rlich wenn eigene Nachrichten und nicht peter griffin -->
-        <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="n.headline == 'Peter Griffin'">
+        <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="n.headline == 'a'">
           	
 	         	 <div class="w-100 mr-2">
 					  
 					<table>
 						<tr>
 							<h6 class="mb-0">{{n.headline}}</h6>
-							<span  class="buttons" *ngIf="n.headline == 'Peter Griffin'">
+							<span  class="buttons" *ngIf="n.headline == 'a'">
 								<button (click)="deleteNews(n.id)" class="btn"><i class="fa fa-trash"></i></button >
 								<button class="btn"><i class="fa fa-edit"></i></button >            
 							</span> 

@@ -2,6 +2,7 @@ import { Component, Input, Output } from '@angular/core';
 import { News } from '../../news';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NewsService } from '../news.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'news-list',
@@ -10,7 +11,7 @@ import { NewsService } from '../news.service';
 })
 export class NewsListComponent {
 
-  constructor(private newsService: NewsService) { }
+  constructor(private http: HttpClient, private newsService: NewsService, private router: Router) { }
 
   @Output()
   public id:string = "";
@@ -23,20 +24,33 @@ export class NewsListComponent {
     return this.news.slice().reverse();
   }
 
-  
-  public deleteNews(news: number): void {
+  public deleteNews(news: string): void {
     if(confirm("Are you sure to delete this news?")) {
 
-		this.newsService.delete(news).subscribe(
+/* 		this.newsService.deleteNews(news).subscribe(
 			() => {
-				this.news.forEach(
+			  this.news.forEach(
 					(current, index) => {
 						if(news.id === current.id) {
 							this.news.splice(index,1);
 						}
 					});
-			});
-	}
+      }); */
+
+    const body = new HttpParams()
+      .set('id', news)
+      .set('jwt', sessionStorage.getItem('jwt'));
+
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+    this.http.post(`example06/rest/news/delete`, body.toString(), {headers, responseType: 'text'})
+    .subscribe(
+      data => {
+        alert('Die Nachricht wurde erfolgreich gelöscht.');
+        window.location.reload();
+      },
+      error => {console.log(error); }
+    );
+  }
   }
 
 }

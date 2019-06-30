@@ -31,12 +31,10 @@ export class NewsService extends BaseNewsService {
     );
   }
 
-  delete(id: string): Observable<News> {
-  const url = `${env.apiUrl}/news/delete`;
-  let jwt = sessionStorage.getItem('jwt');
-  if (jwt == null || jwt.length < 1 ) {
-    jwt = '';
-  }
-    return this.http.post<any>(url, {id, jwt}, {headers: this.defaultHeaders});
+  delete(news: News): Observable<News> {
+    //THIS IS NOT IN USE!! FIND THE API CALL IN THE NEWS LIST COMPONENT TS FILE
+    return this.http.get<any>(`${env.apiUrl}/news/newest`, {headers: this.defaultHeaders}).pipe(
+      map(body => News.fromObject(body))
+    );
   }
 }

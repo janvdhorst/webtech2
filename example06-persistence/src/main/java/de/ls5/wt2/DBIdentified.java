@@ -7,7 +7,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class DBIdentified {
 
-    private long id;
+    public long id;
 
     @Id
     @GeneratedValue
