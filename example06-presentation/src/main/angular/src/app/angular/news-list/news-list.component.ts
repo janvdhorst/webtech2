@@ -12,7 +12,9 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class NewsListComponent {
 
-  constructor(
+	public onEdit = false;
+
+	constructor(
 	  private http: HttpClient, 
 	  private newsService: NewsService, 
 	  private router: Router,
@@ -21,6 +23,7 @@ export class NewsListComponent {
 
   @Output()
   public id:string = "";
+  public content: string = "";
 
   @Input()
   public news: News[] = [];
@@ -37,22 +40,47 @@ export class NewsListComponent {
 
 
   public deleteNews(news: string): void {
-    if(confirm("Are you sure to delete this news?")) {
+		if(confirm("Are you sure to delete this news?")) {
 
-    const body = new HttpParams()
-      .set('id', news)
-      .set('jwt', sessionStorage.getItem('token'));
+			const body = new HttpParams()
+			.set('id', news)
+			.set('jwt', sessionStorage.getItem('token'));
 
-    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    this.http.post(`example06/rest/news/delete`, body.toString(), {headers, responseType: 'text'})
-    .subscribe(
-      data => {
-        alert('Die Nachricht wurde erfolgreich gelöscht.');
-        window.location.reload();
-      },
-      error => {console.log(error); }
-    );
+			const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+			this.http.post(`example06/rest/news/delete`, body.toString(), {headers, responseType: 'text'})
+			.subscribe(
+			data => {
+				alert('Die Nachricht wurde erfolgreich gelöscht.');
+				window.location.reload();
+			},
+			error => {console.log(error); }
+			);
+		}
   }
-  }
+
+    public editNews(news: string): void {
+/*		if(confirm("Are you sure to delete this news?")) {
+
+			const body = new HttpParams()
+			.set('id', news)
+			.set('jwt', sessionStorage.getItem('token'));
+
+			const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+			this.http.post(`example06/rest/news/delete`, body.toString(), {headers, responseType: 'text'})
+			.subscribe(
+			data => {
+				alert('Die Nachricht wurde erfolgreich gelöscht.');
+				window.location.reload();
+			},
+			error => {console.log(error); }
+			);
+		}
+	*/ 	this.onEdit = true; 
+
+	}
+
+	public saveChanges() {
+		this.onEdit = false;
+	}
 
 }

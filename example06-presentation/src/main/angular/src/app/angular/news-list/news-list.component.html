@@ -37,6 +37,18 @@
     top: 0;
     right: 0;
 }
+
+textarea {
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
+    resize: none; /*remove the resize handle on the bottom right*/
+}
   
 </style>
 <div class="row h-100">
@@ -54,10 +66,14 @@
 							<h6 class="mb-0">{{n.headline}}</h6>
 							<span class="buttons" *ngIf="n.headline == currentUser()">
 								<button (click)="deleteNews(n.id)" class="btn"><i class="fa fa-trash"></i></button >
-								<button class="btn"><i class="fa fa-edit"></i></button >            
+								<button (click)="editNews(n.id)" class="btn"><i class="fa fa-edit"></i></button >            
 							</span> 
 						</tr>
-						<tr><div class ="content"> {{n.content}} </div></tr> 									
+						<tr><div class ="content" *ngIf="!onEdit"> {{n.content}} </div></tr> 
+						<div class ="content" *ngIf="onEdit">
+							<textarea name="content" rows="2" class="form-control" required>{{n.content}}</textarea>									
+							<button (click)="saveChanges()" class="btn"><i class="fa fa-save"></i></button >    
+						</div>
 						<tr><small>{{n.publishedOn | date:mediumDate}}</small></tr>
 					</table>
 
