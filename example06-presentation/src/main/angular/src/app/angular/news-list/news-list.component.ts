@@ -41,7 +41,7 @@ export class NewsListComponent {
 
     const body = new HttpParams()
       .set('id', news)
-      .set('token', sessionStorage.getItem('token'));
+      .set('jwt', sessionStorage.getItem('token'));
 
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
     this.http.post(`example06/rest/news/delete`, body.toString(), {headers, responseType: 'text'})
