@@ -19,7 +19,7 @@
         
             <form (submit)="createNews($event)">
               <div class="form-group">
-                <label>Content <span [ngClass]="getCharsLeft() < 0 ? 'text-danger' : 'text-muted'">({{getCharsLeft()}})</span></label>
+               <!-- <label>Content <span [ngClass]="getCharsLeft() < 0 ? 'text-danger' : 'text-muted'">({{getCharsLeft()}})</span></label> -->
                 <textarea name="content" rows="4" class="form-control" required [(ngModel)]="content" placeholder="Type your message here.."></textarea>
               </div>
               <button class="btn btn-block btn-outline-primary" [disabled]="getCharsLeft() < 0">Create News</button>
