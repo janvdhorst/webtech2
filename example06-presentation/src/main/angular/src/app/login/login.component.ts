@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { SessionAuthService } from '../auth/session-auth.service';
-import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AngularComponent } from '../angular/angular.component';
 import { AuthNewsService } from '../auth/auth-news.service';
@@ -9,6 +8,8 @@ import { map } from 'rxjs/operators';
 import { JwtAuthService } from '../auth/jwt-auth.service';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { TokenService } from '../services/token.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,12 @@ import { Router } from '@angular/router';
 export class NewLoginComponent{
 
 	  
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+	  private http: HttpClient, 
+	  private router: Router,
+	  private Token: TokenService,
+	  private Auth: AuthService
+  ) { }
 
   @Output()
   public username:string = "";
@@ -36,13 +42,16 @@ export class NewLoginComponent{
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
     await this.http.post(`example06/rest/auth/user/login`, body.toString(), {headers, responseType: 'text'})
     .subscribe(
-      data => {
-        sessionStorage.setItem('jwt', data);
-		//alert('Login successful');
-		this.router.navigate(['angular']);
-      },
+      data => this.handleResponse(data),
       error => { alert('Login failed'); console.log(error); }
     );
+  }
+
+  handleResponse(data) {
+	this.Token.handle(data);
+	this.Auth.changeAuthStatus(true);
+	// sessionStorage.setItem('jwt', data);
+	this.router.navigate(['angular']);
   }
 
   getBaseUrl(): string {

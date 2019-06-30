@@ -20,7 +20,7 @@ export class CreateNewsComponent {
   public createNews(e: Event): void {
     e.preventDefault();
     this.errorMessage = null;
-    if(sessionStorage.getItem('jwt') != null) this.headline=sessionStorage.getItem('jwt');
+    if(sessionStorage.getItem('token') != null) this.headline=sessionStorage.getItem('token');
 
     if (this.headline.trim() != null && this.content.trim() != null) {
       this.newsService.create(this.headline, this.content).subscribe(
