@@ -65,7 +65,7 @@ export class RegistrationComponent{
 }
 
   checkUsername() {
-	if (this.username == "john.doe") {
+	if (this.username != "john.doe") {
 		return true;
 	} else {
 		this.errors += "- Username is already taken.\n";
@@ -74,7 +74,7 @@ export class RegistrationComponent{
   }
 
   checkPassword() {
-	if (this.password == "123") {
+	if (this.password.length < 8) {
 		return true;
 	} else {
 		this.errors += "- password is too weak.\n";
