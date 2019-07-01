@@ -74,7 +74,7 @@ export class RegistrationComponent{
   }
 
   checkPassword() {
-	if (this.password.length < 8) {
+	if (this.password.length >= 8) {
 		return true;
 	} else {
 		this.errors += "- password is too weak.\n";
