@@ -16,7 +16,10 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent{
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+	  private http: HttpClient, 
+	  private router: Router
+	) { }
 
   @Output()
   public username:string = "";
@@ -24,25 +27,59 @@ export class RegistrationComponent{
   public firstname:string= "";
   public lastname:string="";
   public email:string="";
+  public errors: string ="";
 
   register = async (e: Event) => {
-    e.preventDefault();
-    const body = new HttpParams()
-    .set('username', this.username)
-    .set('password', this.password)
-    .set('firstname', this.firstname)
-    .set('lastname', this.lastname)
-    .set('email', this.email);
+	this.errors = "";  
+	const emailOk = this.checkEmail();
+	const usernameOk = this.checkUsername();
+	const passwordOk  = this.checkPassword();
+	if(emailOk && usernameOk && passwordOk) {
+		e.preventDefault();
+		const body = new HttpParams()
+		.set('username', this.username)
+		.set('password', this.password)
+		.set('firstname', this.firstname)
+		.set('lastname', this.lastname)
+		.set('email', this.email);
 
-    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    await this.http.post(`example06/rest/auth/user/register`, body.toString(), {headers, responseType: 'text'})
-      .subscribe(
-        data => {
-			alert('Registered successfully');
-			this.router.navigate(['login']);
-		},
-        error => {alert('Fehler'); console.log(error); }
-      );
+		const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+		await this.http.post(`example06/rest/auth/user/register`, body.toString(), {headers, responseType: 'text'})
+		.subscribe(
+			data => {
+				alert('Registered successfully');
+				this.router.navigate(['login']);
+			},
+			error => {alert('Fehler'); console.log(error); }
+		);
+	}
+  }
+
+  checkEmail() {
+	if (this.email == "test@test.com") {
+		return true;
+	} else {
+		this.errors += "- Email is not valid.\n";
+		return false;
+	}
+}
+
+  checkUsername() {
+	if (this.username == "john.doe") {
+		return true;
+	} else {
+		this.errors += "- Username is already taken.\n";
+		return false;
+	}
+  }
+
+  checkPassword() {
+	if (this.password == "123") {
+		return true;
+	} else {
+		this.errors += "- password is too weak.\n";
+		return false;
+	}
   }
 
   getBaseUrl(): string {
