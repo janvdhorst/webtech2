@@ -17,4 +17,6 @@ export abstract class BaseNewsService {
   abstract create(headline: string, content: string): Observable<News>;
 
   abstract delete(news: News): Observable<News>;
+
+  abstract update(news: News, content): Observable<News>;
 }

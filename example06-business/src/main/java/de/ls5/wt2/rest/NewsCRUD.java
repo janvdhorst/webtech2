@@ -118,4 +118,41 @@ public class NewsCRUD {
         return Response.status(Response.Status.UNAUTHORIZED).build();
       }
     }
+    
+    @Path("/update")
+    @POST
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces("text/plain")
+    public Response update(@FormParam("id") int pId, @FormParam("jwt") String jwt, @FormParam("newContent") String newContent) {
+      //verify jwt
+      JWTUtil util = new JWTUtil();
+      System.out.println("------------------------------------------------");
+      System.out.println("Request to update NEWS " + pId);
+      if(util.validateToken(jwt.toString())) {
+          String sender = util.getSender(jwt.toString());
+          System.out.println("JWT successfully authenticated as " + sender);
+          CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+          CriteriaQuery<DBNews> query = builder.createQuery(DBNews.class);
+          Root<DBNews> from = query.from(DBNews.class);
+          query.select(from);
+          query.where(builder.equal(from.get( DBNews_.id ), pId ));
+          DBNews news = this.entityManager.createQuery(query).setMaxResults(1).getSingleResult();
+          if( news == null ) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+          }
+          if(!news.getHeadline().equals(sender.toString())) {
+            System.out.println("Unauthorized");
+            System.out.println(news.getHeadline());
+            System.out.println(sender);
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+          }
+          this.entityManager.remove(news);
+          news.setContent(newContent);
+          this.entityManager.persist(news);
+          return Response.ok(pId).build();
+      }
+      else {
+        return Response.status(Response.Status.UNAUTHORIZED).build();
+      }
+    }
 }

@@ -37,4 +37,11 @@ export class NewsService extends BaseNewsService {
       map(body => News.fromObject(body))
     );
   }
+
+  update(news: News, content: string): Observable<News> {
+    //THIS IS NOT IN USE!! FIND THE API CALL IN THE NEWS LIST COMPONENT TS FILE
+    return this.http.get<any>(`${env.apiUrl}/news/newest`, {headers: this.defaultHeaders}).pipe(
+      map(body => News.fromObject(body))
+    );
+  }
 }

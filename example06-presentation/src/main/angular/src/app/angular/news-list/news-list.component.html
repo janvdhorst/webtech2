@@ -71,8 +71,8 @@ textarea {
 						</tr>
 						<tr><div class ="content" *ngIf="!onEdit"> {{n.content}} </div></tr> 
 						<div class ="content" *ngIf="onEdit && n.id == editId">
-							<form (submit)="saveChanges($event)">
-								<textarea name="content" rows="2" class="form-control" required >{{n.content}}</textarea>									
+							<form (submit)="saveChanges(n.id)">
+								<textarea name="content" rows="2" class="form-control" required [(ngModel)]="newContent"> {{n.content}} </textarea>									
 								<button type="submit" class="btn"><i class="fa fa-save"></i></button >    
 							</form>	
 						</div>

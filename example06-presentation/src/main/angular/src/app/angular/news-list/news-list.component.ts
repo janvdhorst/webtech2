@@ -46,7 +46,7 @@ export class NewsListComponent {
 
 			const body = new HttpParams()
 			.set('id', news)
-			.set('jwt', sessionStorage.getItem('token'));
+			.set('jwt', this.Token.get());
 
 			const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
 			this.http.post(`example06/rest/news/delete`, body.toString(), {headers, responseType: 'text'})
@@ -65,11 +65,23 @@ export class NewsListComponent {
 		this.editId = id;
 	}
 
-	public saveChanges(e: Event): void {
-		e.preventDefault();
-		if(confirm("Save changes?")) {
-			
+	public saveChanges(news: string): void {
+		if(confirm("Save changes?")) {			
 			this.onEdit = false;
+
+			const body = new HttpParams()
+			.set('id', news)
+			.set('jwt', this.Token.get())
+			.set('newContent', this.newContent);
+
+			const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+			this.http.post(`example06/rest/news/update`, body.toString(), {headers, responseType: 'text'})
+			.subscribe(
+			data => {
+				window.location.reload();
+			},
+			error => {console.log(error); }
+			);
 		}
 	}
 }

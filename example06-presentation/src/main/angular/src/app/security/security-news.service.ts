@@ -35,4 +35,9 @@ export class SecurityNewsService extends BaseNewsService {
 	const url = `${env.apiUrl}/news`;
     return this.http.delete<News>(url, {headers: this.defaultHeaders});
   }
+
+  update(news: News): Observable<News> {
+	const url = `${env.apiUrl}/news`;
+    return this.http.delete<News>(url, {headers: this.defaultHeaders});
+  }
 }
