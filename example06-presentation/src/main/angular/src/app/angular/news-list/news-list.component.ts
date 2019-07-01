@@ -13,6 +13,7 @@ import { TokenService } from 'src/app/services/token.service';
 export class NewsListComponent {
 
 	public onEdit = false;
+	public editId: number = 0;
 
 	constructor(
 	  private http: HttpClient, 
@@ -24,6 +25,7 @@ export class NewsListComponent {
   @Output()
   public id:string = "";
   public content: string = "";
+  public newContent: string = "";
 
   @Input()
   public news: News[] = [];
@@ -58,29 +60,16 @@ export class NewsListComponent {
 		}
   }
 
-    public editNews(news: string): void {
-/*		if(confirm("Are you sure to delete this news?")) {
+    public editNews(id: number): void {
+	 	this.onEdit = true; 
+		this.editId = id;
+	}
 
-			const body = new HttpParams()
-			.set('id', news)
-			.set('jwt', sessionStorage.getItem('token'));
-
-			const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-			this.http.post(`example06/rest/news/delete`, body.toString(), {headers, responseType: 'text'})
-			.subscribe(
-			data => {
-				alert('Die Nachricht wurde erfolgreich gelöscht.');
-				window.location.reload();
-			},
-			error => {console.log(error); }
-			);
+	public saveChanges(e: Event): void {
+		e.preventDefault();
+		if(confirm("Save changes?")) {
+			
+			this.onEdit = false;
 		}
-	*/ 	this.onEdit = true; 
-
 	}
-
-	public saveChanges() {
-		this.onEdit = false;
-	}
-
 }
