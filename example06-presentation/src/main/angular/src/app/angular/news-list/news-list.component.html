@@ -72,8 +72,9 @@ textarea {
 						<tr><div class ="content" *ngIf="!onEdit"> {{n.content}} </div></tr> 
 						<div class ="content" *ngIf="onEdit && n.id == editId">
 							<form (submit)="saveChanges(n.id)">
-								<textarea name="content" rows="2" class="form-control" autofocus [(ngModel)]="newContent"> {{n.content}} </textarea>									
-								<button type="submit" class="btn"><i class="fa fa-save"></i></button >    
+								<textarea name="content" rows="2" class="form-control" autofocus [(ngModel)]="newContent"> {{n.content}} </textarea>	
+								<button (click)="cancelChanges()" class="btn"><i class="fa fa-window-close"></i></button >  								
+								<button type="submit" class="btn"><i class="fa fa-save"></i></button >     
 							</form>	
 						</div>
 						<tr><small>{{n.publishedOn | date:mediumDate}}</small></tr>

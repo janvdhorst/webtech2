@@ -84,4 +84,8 @@ export class NewsListComponent {
 			);
 		}
 	}
+
+	public cancelChanges() {
+	 	this.onEdit = false; 
+	}
 }
