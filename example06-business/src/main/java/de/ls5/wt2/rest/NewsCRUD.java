@@ -23,7 +23,9 @@ import de.ls5.wt2.DBNews;
 import de.ls5.wt2.DBNews_;
 import de.ls5.wt2.conf.auth.jwt.*;
 import javax.ws.rs.FormParam;
-
+import de.ls5.wt2.DBUser;
+import de.ls5.wt2.DBUser_;
+import javax.persistence.NoResultException;
 @Path("/news")
 @Transactional
 public class NewsCRUD {
@@ -105,7 +107,22 @@ public class NewsCRUD {
           if( news == null ) {
             return Response.status(Response.Status.NOT_FOUND).build();
           }
-          if(!news.getHeadline().equals(sender.toString())) {
+          // search for the sender in DB and check if he is admin
+          CriteriaBuilder builder2 = this.entityManager.getCriteriaBuilder();
+          final CriteriaQuery<DBUser> query2 = builder2.createQuery(DBUser.class);
+          final Root<DBUser> from2 = query2.from(DBUser.class);
+          query2.select(from2);
+          query2.where(builder2.equal(from2.get( DBUser_.username ), sender ));
+          Boolean isAdmin = false;
+        try {
+          DBUser foundUser = this.entityManager.createQuery(query2).setMaxResults(1).getSingleResult();
+          if( foundUser.isAdmin() == 1 ) {
+            isAdmin = true;
+          }
+         } catch (NoResultException e) {
+          // Continue
+        }
+          if(!isAdmin && !news.getHeadline().equals(sender.toString())) {
             System.out.println("Unauthorized");
             System.out.println(news.getHeadline());
             System.out.println(sender);
@@ -140,7 +157,24 @@ public class NewsCRUD {
           if( news == null ) {
             return Response.status(Response.Status.NOT_FOUND).build();
           }
-          if(!news.getHeadline().equals(sender.toString())) {
+
+          // search for the sender in DB and check if he is admin
+          CriteriaBuilder builder2 = this.entityManager.getCriteriaBuilder();
+          final CriteriaQuery<DBUser> query2 = builder2.createQuery(DBUser.class);
+          final Root<DBUser> from2 = query2.from(DBUser.class);
+          query2.select(from2);
+          query2.where(builder2.equal(from2.get( DBUser_.username ), sender ));
+          Boolean isAdmin = false;
+        try {
+          DBUser foundUser = this.entityManager.createQuery(query2).setMaxResults(1).getSingleResult();
+          if( foundUser.isAdmin() == 1 ) {
+            isAdmin = true;
+          }
+         } catch (NoResultException e) {
+          // Continue
+        }
+
+          if(!isAdmin && !news.getHeadline().equals(sender.toString())) {
             System.out.println("Unauthorized");
             System.out.println(news.getHeadline());
             System.out.println(sender);
