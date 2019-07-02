@@ -47,10 +47,26 @@ export class NewLoginComponent{
     );
   }
 
-  handleResponse(data) {
-	this.Token.handle(data, this.username);
-	this.Auth.changeAuthStatus(true);
-	this.router.navigate(['angular']);
+  async handleResponse(data) {
+    this.Token.handle(data, this.username);
+    this.Auth.changeAuthStatus(true);
+    const body = new HttpParams()
+      .set('jwt', this.Token.get());
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+    await this.http.post(`example06/rest/auth/user/isAdmin`, body.toString(), {headers, responseType: 'text'})
+    .subscribe(
+      res => {
+        if ( res == 'true' ) {
+          alert('You ARE ADMIN!!1!1!11!');
+          this.Token.setAdmin(1);
+          this.router.navigate(['angular']);
+        } else {
+          this.Token.setAdmin(0);
+          this.router.navigate(['angular']);
+        }
+      },
+      error => { this.Token.setAdmin(0); }
+    );
   }
 
   getBaseUrl(): string {

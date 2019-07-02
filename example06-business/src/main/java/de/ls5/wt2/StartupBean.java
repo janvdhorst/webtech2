@@ -8,7 +8,8 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import com.nimbusds.jose.*;
+import java.security.*;
 @Singleton
 @Startup
 public class StartupBean {
@@ -68,6 +69,22 @@ public class StartupBean {
         user.setLastname("Norris");
         user.setEmail("admin@dda.com");
         user.setAdmin(1);
+
+        String password = "webtech2";
+
+          try {
+          MessageDigest md = MessageDigest.getInstance("MD5");
+          md.update(password.getBytes());
+          byte[] hashedPassword = md.digest();
+          StringBuilder sb = new StringBuilder();
+          for(int i=0; i<hashedPassword.length; i++) {
+            sb.append(Integer.toString((hashedPassword[i] & 0xff) + 0x100, 16).substring(1));
+          }
+        
+        user.setPassword(sb.toString());
+          }catch ( NoSuchAlgorithmException e) {
+
+          }
         this.entityManager.persist(user);
     }
 

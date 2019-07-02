@@ -5,12 +5,21 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-  	constructor() { }
+    constructor() { }
+    
+    private isAdmin = 0;
 
 	handle(token, username) {
 		this.set(token);
 		this.setUsername(username);
-	}
+  }
+  
+  setAdmin(pAdmin) {
+    this.isAdmin = pAdmin;
+  }
+  getAdmin() {
+    return this.isAdmin;
+  }
 
 	setUsername(username) {
 		sessionStorage.setItem('username', username);

@@ -84,6 +84,31 @@ public class UserREST {
     }
 
     @POST
+    @Path("isAdmin")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces("text/plain")
+    public Response isAdminResponse(@FormParam("jwt") String jwt) {
+      JWTUtil util = new JWTUtil();
+      if(util.validateToken(jwt)) {
+        String sender = util.getSender(jwt);
+        final CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        final CriteriaQuery<DBUser> query = builder.createQuery(DBUser.class);
+        final Root<DBUser> from = query.from(DBUser.class);
+        query.select(from);
+        query.where(builder.equal(from.get( DBUser_.username ), sender ));
+        try {
+          DBUser foundUser = this.entityManager.createQuery(query).setMaxResults(1).getSingleResult();
+          if( foundUser.isAdmin() == 1 ) {
+            return Response.ok("true").build();
+          }
+         } catch (NoResultException e) {
+          // Continue
+        }
+      }
+      return Response.ok("false").build();
+    }
+
+    @POST
     @Path("register")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
