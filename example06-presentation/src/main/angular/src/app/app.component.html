@@ -7,6 +7,10 @@
     margin: 0 auto;
     max-width: 1366px;
   }
+  .logout {
+    color: red;
+    text-decoration: none;
+  }
 
 </style>
 <div class="container-fluid h-100">
@@ -17,10 +21,10 @@
               <div class="navbar-nav text-center">
                 <a class="nav-item pr-3 pl-3 nav-link" routerLink="/angular" routerLinkActive="active">Home</a>
                 <a class="nav-item pl-3 pr-3 nav-link active" routerLink="/login" routerLinkActive="active" *ngIf="!loggedIn">Login <span class="sr-only">(current)</span></a>
-				<a class="nav-item pl-3 pr-3 nav-link" routerLink="/registration" routerLinkActive="active" *ngIf="!loggedIn">Registration</a>				
-				<a class="nav-item pl-3 pr-3 nav-link" href="#" (click)="logout($event)" *ngIf="loggedIn">Logout</a>
+				        <a class="nav-item pl-3 pr-3 nav-link" routerLink="/registration" routerLinkActive="active" *ngIf="!loggedIn">Registration</a>
               </div>
             </div>
+            <a class="nav-item pr-5 nav-link logout" href="#" (click)="logout($event)" *ngIf="loggedIn"><i class="fas fa-power-off"></i> Logout</a>
           </nav>
     </div>
   </div>
