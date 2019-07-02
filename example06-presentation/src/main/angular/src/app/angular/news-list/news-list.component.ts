@@ -37,7 +37,10 @@ export class NewsListComponent {
 
   public currentUser() {
 	  return this.Token.getUsername();
+  }
 
+  public isAdmin() {
+    return this.Token.getAdmin();
   }
 
 

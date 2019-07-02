@@ -85,14 +85,14 @@ textarea {
         No news available
       </div>
       <div class="list-group" *ngIf="news.length > 0">
-        <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="n.headline == currentUser()">
+        <div class="list-group-item d-flex flex-row" *ngFor="let n of reversedNews; let i = index" [class.list-group-item-primary]="n.headline == currentUser() || isAdmin() == 1">
           	
 	         	 <div class="w-100 mr-2">
 					  
 					<table>
 						<tr>
 							<h6 class="mb-0">{{n.headline}}</h6>
-							<span class="buttons" *ngIf="n.headline == currentUser()">
+							<span class="buttons" *ngIf="n.headline == currentUser() || isAdmin() == 1">
 								<button (click)="deleteNews(n.id)" class="btn"><i class="fa fa-trash"></i></button >
 								<button (click)="editNews(n.id)" class="btn"><i class="fa fa-edit"></i></button >            
 							</span> 

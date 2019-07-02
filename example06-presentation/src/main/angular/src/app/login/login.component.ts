@@ -57,7 +57,6 @@ export class NewLoginComponent{
     .subscribe(
       res => {
         if ( res == 'true' ) {
-          alert('You ARE ADMIN!!1!1!11!');
           this.Token.setAdmin(1);
           this.router.navigate(['angular']);
         } else {

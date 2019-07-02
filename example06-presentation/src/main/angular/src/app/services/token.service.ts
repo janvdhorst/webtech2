@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
     constructor() { }
-    
-    private isAdmin = 0;
 
 	handle(token, username) {
 		this.set(token);
@@ -15,10 +13,10 @@ export class TokenService {
   }
   
   setAdmin(pAdmin) {
-    this.isAdmin = pAdmin;
+    sessionStorage.setItem('adm', pAdmin);
   }
   getAdmin() {
-    return this.isAdmin;
+    return sessionStorage.getItem('adm');
   }
 
 	setUsername(username) {
@@ -39,7 +37,8 @@ export class TokenService {
 
 	remove() {
 		sessionStorage.removeItem('token');
-		sessionStorage.removeItem('username');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('adm');
 	}
 
 	isValid() {

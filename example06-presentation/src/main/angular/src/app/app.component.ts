@@ -28,7 +28,6 @@ export class AppComponent implements OnInit{
 		this.Token.remove();
 		this.Auth.changeAuthStatus(false);
 		this.router.navigate(['login']);
-
 	}
 
 
