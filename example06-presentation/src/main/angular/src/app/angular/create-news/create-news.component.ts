@@ -22,6 +22,10 @@ export class CreateNewsComponent {
     this.errorMessage = null;
     if(sessionStorage.getItem('token') != null) this.headline=sessionStorage.getItem('token');
 
+    if(this.content.length < 10){
+      this.errorMessage = 'Write at least 10 characters';
+      return;
+    }
     if (this.headline.trim() != null && this.content.trim() != null) {
       this.newsService.create(this.headline, this.content).subscribe(
         () => {
@@ -29,7 +33,7 @@ export class CreateNewsComponent {
           this.content = "";
           this.headline = "";
         },
-        () => this.errorMessage = 'Could not create news'
+        () => this.errorMessage = 'An error occurred'
       );
     }
   }
