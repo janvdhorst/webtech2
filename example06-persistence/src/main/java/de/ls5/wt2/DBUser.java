@@ -16,7 +16,14 @@ public class DBUser extends DBIdentified {
     private String password;
     private String firstname;
     private String lastname;
+    private Integer isAdmin;
 
+    public Integer isAdmin() {
+      return isAdmin;
+    }
+    public void setAdmin(Integer pAdmin) {
+      this.isAdmin = pAdmin;
+    }
     public String getLastname() {
       return this.lastname;
     }

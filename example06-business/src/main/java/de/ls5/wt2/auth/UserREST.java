@@ -105,6 +105,7 @@ public class UserREST {
         user.setFirstname(firstname);
         user.setLastname(lastname);
         user.setEmail(email);
+        user.setAdmin(0);
         try {
           MessageDigest md = MessageDigest.getInstance("MD5");
           md.update(password.getBytes());
