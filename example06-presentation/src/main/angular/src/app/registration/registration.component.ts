@@ -47,8 +47,13 @@ export class RegistrationComponent{
 		await this.http.post(`example06/rest/auth/user/register`, body.toString(), {headers, responseType: 'text'})
 		.subscribe(
 			data => {
-				alert('Registered successfully');
-				this.router.navigate(['login']);
+        if(data == 'username-already-taken') {
+          this.errors += "- Username is already taken.\n";
+        }
+        else {
+          alert('Registered successfully');
+				  this.router.navigate(['login']);
+        }
 			},
 			error => {alert('Fehler'); console.log(error); }
 		);

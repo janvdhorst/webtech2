@@ -27,6 +27,8 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import de.ls5.wt2.conf.auth.jwt.*;
 import com.nimbusds.jose.*;
+import de.ls5.wt2.DBUser_;
+import javax.persistence.NoResultException;
 @Path("/auth/user")
 @Transactional
 public class UserREST {
@@ -87,6 +89,17 @@ public class UserREST {
     @Produces("text/plain")
     public Response registerUser(@FormParam("username") String username, @FormParam("password") String password, @FormParam("firstname") String firstname,
       @FormParam("lastname") String lastname, @FormParam("email") String email) {
+        final CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        final CriteriaQuery<DBUser> query = builder.createQuery(DBUser.class);
+        final Root<DBUser> from = query.from(DBUser.class);
+        query.select(from);
+        query.where(builder.equal(from.get( DBUser_.username ), username ));
+        try {
+          DBUser foundUser = this.entityManager.createQuery(query).setMaxResults(1).getSingleResult();
+          return Response.ok("username-already-taken").build();
+        } catch (NoResultException e) {
+          // Continue
+        }
         final DBUser user = new DBUser();
         user.setUsername(username);
         user.setFirstname(firstname);
