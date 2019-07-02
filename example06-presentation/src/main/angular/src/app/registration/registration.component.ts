@@ -56,7 +56,7 @@ export class RegistrationComponent{
   }
 
   checkEmail() {
-	if (this.email == "test@test.com") {
+	if (this.email.length>=5) {
 		return true;
 	} else {
 		this.errors += "- Email is not valid.\n";
