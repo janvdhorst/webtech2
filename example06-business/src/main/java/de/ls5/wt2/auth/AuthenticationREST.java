@@ -14,6 +14,8 @@ import com.nimbusds.jose.JOSEException;
 import de.ls5.wt2.conf.auth.jwt.JWTLoginData;
 import de.ls5.wt2.conf.auth.jwt.JWTUtil;
 import javax.ws.rs.FormParam;
+import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
+import org.apache.shiro.web.util.WebUtils;
 
 @Path("jwt")
 @Transactional
@@ -25,18 +27,14 @@ public class AuthenticationREST {
     @Path("authenticate")
     @POST
     @Consumes("application/x-www-form-urlencoded")
-    public Response createJWToken(@FormParam("username") String user, @FormParam("password") String password) throws JOSEException {
+    public Response createJWToken(@FormParam("jwt") String jwt) throws JOSEException {
 
         // do some proper lookup
-        JWTLoginData credentials = new JWTLoginData();
-        credentials.setUsername(user);
-        credentials.setPassword(password);
-
-        if (!user.equals("horst")) {
-            return Response.status(Status.UNAUTHORIZED).build();
+        JWTUtil util = new JWTUtil();
+        if(!util.validateToken(jwt)) {
+          return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
-
-        return Response.ok(JWTUtil.createJWToken(credentials)).build();
+        return Response.ok().build();
     }
 
 }

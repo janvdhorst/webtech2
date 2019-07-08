@@ -52,7 +52,7 @@ export class NewsListComponent {
 			.set('jwt', this.Token.get());
 
 			const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-			this.http.post(`example06/rest/news/delete`, body.toString(), {headers, responseType: 'text'})
+			this.http.post(`rest/news/delete`, body.toString(), {headers, responseType: 'text'})
 			.subscribe(
 			data => {
 				alert('Die Nachricht wurde erfolgreich gelöscht.');
@@ -78,7 +78,7 @@ export class NewsListComponent {
 			.set('newContent', this.newContent);
 
 			const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-			this.http.post(`example06/rest/news/update`, body.toString(), {headers, responseType: 'text'})
+			this.http.post(`rest/news/update`, body.toString(), {headers, responseType: 'text'})
 			.subscribe(
 			data => {
 				window.location.reload();

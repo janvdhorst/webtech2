@@ -1,11 +1,8 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { SessionAuthService } from '../auth/session-auth.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AngularComponent } from '../angular/angular.component';
-import { AuthNewsService } from '../auth/auth-news.service';
 import { environment as env } from '../../environments/environment';
 import { map } from 'rxjs/operators';
-import { JwtAuthService } from '../auth/jwt-auth.service';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
@@ -40,7 +37,7 @@ export class NewLoginComponent{
     .set('password', this.password);
 
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    await this.http.post(`example06/rest/auth/user/login`, body.toString(), {headers, responseType: 'text'})
+    await this.http.post(`rest/auth/user/login`, body.toString(), {headers, responseType: 'text'})
     .subscribe(
       data => this.handleResponse(data),
       error => { alert('Login failed'); console.log(error); }
@@ -53,7 +50,7 @@ export class NewLoginComponent{
     const body = new HttpParams()
       .set('jwt', this.Token.get());
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    await this.http.post(`example06/rest/auth/user/isAdmin`, body.toString(), {headers, responseType: 'text'})
+    await this.http.post(`rest/auth/user/isAdmin`, body.toString(), {headers, responseType: 'text'})
     .subscribe(
       res => {
         if ( res == 'true' ) {
