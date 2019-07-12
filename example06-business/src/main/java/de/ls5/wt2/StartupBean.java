@@ -31,27 +31,27 @@ public class StartupBean {
             final DBNews news5 = new DBNews();
             final DBNews news6 = new DBNews();
 
-            news1.setHeadline("Satchel Paige");
+            news1.setHeadline("satchel.paige");
             news1.setContent("Work like you don't need the money. Love like you've never been hurt. Dance like nobody's watching.");
             news1.setPublishedOn(new Date());
             
-            news2.setHeadline("Barney Stinson");
+            news2.setHeadline("barney.stinson");
             news2.setContent("Believe it or not, I was not always as awesome as I am today");
             news2.setPublishedOn(new Date());
             
-            news3.setHeadline("Alexander Milne");
+            news3.setHeadline("alexander.milne");
             news3.setContent("People say nothing is impossible, but i do nothing everyday!");
             news3.setPublishedOn(new Date());
             
-            news4.setHeadline("Abraham Lincoln");
+            news4.setHeadline("abraham.lincoln");
             news4.setContent("Better to remain silent and be thought a fool than to speak out and remove all doubt.");
             news4.setPublishedOn(new Date());            
             
-            news5.setHeadline("Peter Griffin");
+            news5.setHeadline("peter.griffin");
             news5.setContent("I have an idea so smart that my head would explode if I even began to know what I was talking about.");
             news5.setPublishedOn(new Date());
             
-            news6.setHeadline("Peter Griffin");
+            news6.setHeadline("peter.griffin");
             news6.setContent("Love is like a fart. if you have to force it, it's probably crap.");
             news6.setPublishedOn(new Date());
 
